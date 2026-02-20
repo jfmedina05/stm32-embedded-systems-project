@@ -1,0 +1,17 @@
+../Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_ll_usart.h:3676:22:LL_USART_EnableIT_RXNE	40	static,ignoring_inline_asm
+../Core/Src/main.c:101:5:main	16	static
+../Core/Src/main.c:198:6:SystemClock_Config	96	static
+../Core/Src/main.c:261:13:MX_RTC_Init	80	static
+../Core/Src/main.c:344:13:MX_USART2_UART_Init	8	static
+../Core/Src/main.c:379:13:MX_GPIO_Init	40	static
+../Core/Src/main.c:407:12:parse_command	32	static
+../Core/Src/main.c:431:12:execute_command	32	static
+../Core/Src/main.c:459:13:help_command	24	static
+../Core/Src/main.c:469:13:lon_command	16	static
+../Core/Src/main.c:475:13:lof_command	16	static
+../Core/Src/main.c:480:13:time_set_command	64	static
+../Core/Src/main.c:538:13:date_set_command	48	static
+../Core/Src/main.c:594:13:test_command	24	static
+../Core/Src/main.c:607:13:print_prompt	56	static
+../Core/Src/main.c:621:6:HAL_RTC_AlarmAEventCallback	16	static
+../Core/Src/main.c:634:6:Error_Handler	4	static,ignoring_inline_asm
