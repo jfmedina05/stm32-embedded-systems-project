@@ -29,6 +29,10 @@
 #include <string.h>
 #include <stdio.h>
 #include <stdint.h>
+#include <stm32l4xx_ll_tim.h>
+#include <stm32l4xx_ll_adc.h>
+#include <stm32l4xx_ll_gpio.h>
+#include <stm32l4xx_ll_bus.h>
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -69,6 +73,11 @@ volatile uint32_t ic_val2 = 0;
 volatile uint8_t capture_state = 0;
 volatile uint32_t tsl_frequency = 0;
 
+volatile uint32_t g_last_capture = 0;
+volatile uint32_t g_period_ticks = 0;
+volatile uint8_t  g_capture_ready = 0;
+volatile uint8_t  g_capture_started = 0;
+
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -84,6 +93,13 @@ static void lof_command(char *arguments);
 static void time_set_command(char *arguments);
 static void date_set_command(char *arguments);
 static void test_command(char *arguments);
+
+static void ADC1_Init_Internal(void);
+static uint16_t ADC1_ReadChannel(uint32_t channel);
+static void TIM2_Init_InputCapture(void);
+
+//static void MX_TIM2_Init_InputCapture(void);
+//static void MX_ADC1_Init_Internal(void);
 command_t commands[] = {
   {"help", help_command},
   {"lof",  lof_command},
@@ -91,9 +107,7 @@ command_t commands[] = {
   {"test", test_command},
   {"ts", time_set_command},
   {"ds", date_set_command},
-  {"tsl237", tsl237_command},
-  {"temp", temp_command},
-  {"battery", battery_command},
+
   {0, 0}
 };
 static int parse_command(uint8_t *line, uint8_t **command, uint8_t **args);
@@ -105,95 +119,70 @@ static void temp_command(char *arguments);
 static void battery_command(char *arguments);
 
 /* ---- LAB 5 INIT ---- */
-static void MX_TIM2_Init(void);
-static void MX_ADC1_Init(void);
+//static void MX_TIM2_Init_InputCapture(void);
+//static void MX_ADC1_Init_Internal(void);
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-/* ================= TSL237 CAPTURE CALLBACK ================= */
-void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim)
-{
-    if(htim->Channel == HAL_TIM_ACTIVE_CHANNEL_1)
-    {
-        if(capture_state == 0)
-        {
-            ic_val1 = HAL_TIM_ReadCapturedValue(htim, TIM_CHANNEL_1);
-            capture_state = 1;
-        }
-        else
-        {
-            ic_val2 = HAL_TIM_ReadCapturedValue(htim, TIM_CHANNEL_1);
 
-            uint32_t diff = (ic_val2 > ic_val1)
-                ? (ic_val2 - ic_val1)
-                : (0xFFFFFFFF - ic_val1 + ic_val2);
-
-            uint32_t timer_clk = HAL_RCC_GetPCLK1Freq();
-            tsl_frequency = timer_clk / diff;
-
-            capture_state = 0;
-        }
-    }
-}
-
-/* ================= TEMPERATURE READ ================= */
-static float read_temperature(void)
-{
-    ADC_ChannelConfTypeDef sConfig = {0};
-
-    sConfig.Channel = ADC_CHANNEL_TEMPSENSOR;
-    sConfig.Rank = ADC_REGULAR_RANK_1;
-    sConfig.SamplingTime = ADC_SAMPLETIME_247CYCLES_5;
-    HAL_ADC_ConfigChannel(&hadc1, &sConfig);
-
-    HAL_ADC_Start(&hadc1);
-    HAL_ADC_PollForConversion(&hadc1, HAL_MAX_DELAY);
-
-    uint32_t adc_val = HAL_ADC_GetValue(&hadc1);
-    float Vsense = (3.3f * adc_val) / 4095.0f;
-
-    return ((Vsense - 0.76f) / 0.0025f) + 25.0f;
-}
-
-/* ================= BATTERY READ ================= */
-static float read_battery(void)
-{
-    ADC_ChannelConfTypeDef sConfig = {0};
-
-    sConfig.Channel = ADC_CHANNEL_VREFINT;
-    sConfig.Rank = ADC_REGULAR_RANK_1;
-    sConfig.SamplingTime = ADC_SAMPLETIME_247CYCLES_5;
-    HAL_ADC_ConfigChannel(&hadc1, &sConfig);
-
-    HAL_ADC_Start(&hadc1);
-    HAL_ADC_PollForConversion(&hadc1, HAL_MAX_DELAY);
-
-    uint32_t adc_val = HAL_ADC_GetValue(&hadc1);
-
-    return 3.0f * (4095.0f / adc_val);
-}
 
 /* ================= COMMANDS ================= */
 static void tsl237_command(char *arguments)
 {
     (void)arguments;
-    printf("%.2f hz\r\n", (float)tsl_frequency);
+
+    g_capture_ready = 0;
+
+    for (uint32_t i = 0; i < 2000000; i++)
+    {
+        if (g_capture_ready) break;
+    }
+
+    if (!g_capture_ready || g_period_ticks == 0)
+    {
+        printf("ERR timeout\r\n");
+        return;
+    }
+
+    float hz = 32000000.0f / (float)g_period_ticks;
+    printf("%.2f hz\r\n", hz);
 }
 
 static void temp_command(char *arguments)
 {
     (void)arguments;
-    float t = read_temperature();
-    printf("%.0f C\r\n", t);
+
+    uint16_t adc_ts = ADC1_ReadChannel(LL_ADC_CHANNEL_TEMPSENSOR);
+    uint16_t adc_vref = ADC1_ReadChannel(LL_ADC_CHANNEL_VREFINT);
+
+    uint16_t ts_cal1 = *TEMPSENSOR_CAL1_ADDR;
+    uint16_t ts_cal2 = *TEMPSENSOR_CAL2_ADDR;
+    uint16_t vrefint_cal = *VREFINT_CAL_ADDR;
+
+    float vdda = 3.0f * (float)vrefint_cal / (float)adc_vref;
+    float adc_ts_3v = (float)adc_ts * (vdda/3.0f);
+
+    float temp_c = 30.0f + (adc_ts_3v - (float)ts_cal1) *
+                   (130.0f - 30.0f) /
+                   ((float)ts_cal2 - (float)ts_cal1);
+
+    int temp_int = (int)(temp_c + 0.5f);
+    printf("%d C\r\n", temp_int);
 }
 
 static void battery_command(char *arguments)
 {
     (void)arguments;
-    float v = read_battery();
-    printf("%.2f V\r\n", v);
+
+    uint16_t adc_vref = ADC1_ReadChannel(LL_ADC_CHANNEL_VREFINT);
+    uint16_t vrefint_cal = *VREFINT_CAL_ADDR;
+
+    float vdda = 3.0f * (float)vrefint_cal / (float)adc_vref;
+
+    printf("%.2f V\r\n", vdda);
 }
+
 
 /* USER CODE END 0 */
 
@@ -225,20 +214,27 @@ int main(void)
   /* USER CODE END SysInit */
 
   /* Initialize all configured peripherals */
+
   MX_GPIO_Init();
   MX_USART2_UART_Init();
   LL_USART_EnableIT_RXNE(USART2);
   RetargetInit(&huart2);
   MX_RTC_Init();
+
+  ADC1_Init_Internal();
+  TIM2_Init_InputCapture();
+
   /* USER CODE BEGIN 2 */
   rxbuf_init(&g_rxbuf);
   printf("System Up and Running\n\r");
   //printf("> ");
   print_prompt();
 
-  MX_TIM2_Init();
-  MX_ADC1_Init();
-  HAL_TIM_IC_Start_IT(&htim2, TIM_CHANNEL_1);
+  MX_RTC_Init();
+
+  ADC1_Init_Internal();
+  TIM2_Init_InputCapture();
+
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -748,6 +744,79 @@ void Error_Handler(void)
   }
   /* USER CODE END Error_Handler_Debug */
 }
+
+//Fix 1
+static void ADC1_Init_Internal(void)
+{
+    LL_AHB2_GRP1_EnableClock(LL_AHB2_GRP1_PERIPH_ADC);
+
+    LL_ADC_SetCommonPathInternalCh(__LL_ADC_COMMON_INSTANCE(ADC1),
+        LL_ADC_PATH_INTERNAL_TEMPSENSOR | LL_ADC_PATH_INTERNAL_VREFINT);
+
+    if (LL_ADC_IsEnabled(ADC1))
+    {
+        LL_ADC_Disable(ADC1);
+        while (LL_ADC_IsEnabled(ADC1));
+    }
+
+    LL_ADC_StartCalibration(ADC1, LL_ADC_SINGLE_ENDED);
+    while (LL_ADC_IsCalibrationOnGoing(ADC1));
+
+    LL_ADC_REG_SetSequencerLength(ADC1, LL_ADC_REG_SEQ_SCAN_DISABLE);
+    LL_ADC_REG_SetContinuousMode(ADC1, LL_ADC_REG_CONV_SINGLE);
+    LL_ADC_REG_SetTriggerSource(ADC1, LL_ADC_REG_TRIG_SOFTWARE);
+
+    LL_ADC_Enable(ADC1);
+    while (!LL_ADC_IsActiveFlag_ADRDY(ADC1));
+}
+
+//Fix 2
+static uint16_t ADC1_ReadChannel(uint32_t channel)
+{
+    LL_ADC_SetChannelSamplingTime(ADC1, channel, LL_ADC_SAMPLINGTIME_247CYCLES_5);
+    LL_ADC_REG_SetSequencerRanks(ADC1, LL_ADC_REG_RANK_1, channel);
+
+    LL_ADC_ClearFlag_EOC(ADC1);
+    LL_ADC_ClearFlag_EOS(ADC1);
+
+    LL_ADC_REG_StartConversion(ADC1);
+
+    while (!LL_ADC_IsActiveFlag_EOC(ADC1));
+
+    return (uint16_t)LL_ADC_REG_ReadConversionData12(ADC1);
+}
+
+//Fix 3
+static void TIM2_Init_InputCapture(void)
+{
+    LL_APB1_GRP1_EnableClock(LL_APB1_GRP1_PERIPH_TIM2);
+    LL_AHB2_GRP1_EnableClock(LL_AHB2_GRP1_PERIPH_GPIOA);
+
+    LL_GPIO_SetPinMode(GPIOA, LL_GPIO_PIN_5, LL_GPIO_MODE_ALTERNATE);
+    LL_GPIO_SetPinPull(GPIOA, LL_GPIO_PIN_5, LL_GPIO_PULL_NO);
+    LL_GPIO_SetPinSpeed(GPIOA, LL_GPIO_PIN_5, LL_GPIO_SPEED_FREQ_HIGH);
+    LL_GPIO_SetAFPin_0_7(GPIOA, LL_GPIO_PIN_5, LL_GPIO_AF_1);
+
+    LL_TIM_SetPrescaler(TIM2, 0);
+    LL_TIM_SetCounterMode(TIM2, LL_TIM_COUNTERMODE_UP);
+    LL_TIM_SetAutoReload(TIM2, 0xFFFFFFFF);
+
+    LL_TIM_IC_SetActiveInput(TIM2, LL_TIM_CHANNEL_CH1, LL_TIM_ACTIVEINPUT_DIRECTTI);
+    LL_TIM_IC_SetPrescaler(TIM2, LL_TIM_CHANNEL_CH1, LL_TIM_ICPSC_DIV1);
+    LL_TIM_IC_SetFilter(TIM2, LL_TIM_CHANNEL_CH1, LL_TIM_IC_FILTER_FDIV1);
+    LL_TIM_IC_SetPolarity(TIM2, LL_TIM_CHANNEL_CH1, LL_TIM_IC_POLARITY_RISING);
+
+    LL_TIM_CC_EnableChannel(TIM2, LL_TIM_CHANNEL_CH1);
+    LL_TIM_EnableIT_CC1(TIM2);
+
+    NVIC_SetPriority(TIM2_IRQn, 0);
+    NVIC_EnableIRQ(TIM2_IRQn);
+
+    LL_TIM_EnableCounter(TIM2);
+}
+
+
+
 #ifdef USE_FULL_ASSERT
 /**
   * @brief  Reports the name of the source file and the source line number
