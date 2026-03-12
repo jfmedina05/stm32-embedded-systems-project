@@ -34,34 +34,34 @@ $(wildcard ../makefile.init) \
 $(wildcard ../makefile.targets) \
 
 
-BUILD_ARTIFACT_NAME := Lab 2
+BUILD_ARTIFACT_NAME := Lab3_v2.1
 BUILD_ARTIFACT_EXTENSION := elf
 BUILD_ARTIFACT_PREFIX :=
 BUILD_ARTIFACT := $(BUILD_ARTIFACT_PREFIX)$(BUILD_ARTIFACT_NAME)$(if $(BUILD_ARTIFACT_EXTENSION),.$(BUILD_ARTIFACT_EXTENSION),)
 
 # Add inputs and outputs from these tool invocations to the build variables 
 EXECUTABLES += \
-Lab\ 2.elf \
+Lab3_v2.1.elf \
 
 MAP_FILES += \
-Lab\ 2.map \
+Lab3_v2.1.map \
 
 SIZE_OUTPUT += \
 default.size.stdout \
 
 OBJDUMP_LIST += \
-Lab\ 2.list \
+Lab3_v2.1.list \
 
 
 # All Target
 all: main-build
 
 # Main-build Target
-main-build: Lab\ 2.elf secondary-outputs
+main-build: Lab3_v2.1.elf secondary-outputs
 
 # Tool invocations
-Lab\ 2.elf Lab\ 2.map: $(OBJS) $(USER_OBJS) C:\Users\jaide\OneDrive\Documents\GitHub\ES-SPRING-2026\Lab\ 2\ ENGR-E\ 514\STM32L432KCUX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "Lab 2.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"C:\Users\jaide\OneDrive\Documents\GitHub\ES-SPRING-2026\Lab 2 ENGR-E 514\STM32L432KCUX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Lab 2.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Lab3_v2.1.elf Lab3_v2.1.map: $(OBJS) $(USER_OBJS) C:\Users\tgr07\OneDrive\Desktop\ES-Spring-2026\Lab3_v2\STM32L432KCUX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "Lab3_v2.1.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"C:\Users\tgr07\OneDrive\Desktop\ES-Spring-2026\Lab3_v2\STM32L432KCUX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Lab3_v2.1.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 
@@ -70,14 +70,14 @@ default.size.stdout: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
 	@echo 'Finished building: $@'
 	@echo ' '
 
-Lab\ 2.list: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-objdump -h -S $(EXECUTABLES) > "Lab 2.list"
+Lab3_v2.1.list: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-objdump -h -S $(EXECUTABLES) > "Lab3_v2.1.list"
 	@echo 'Finished building: $@'
 	@echo ' '
 
 # Other Targets
 clean:
-	-$(RM) Lab\ 2.elf Lab\ 2.list Lab\ 2.map Lab\\ 2.elf default.size.stdout
+	-$(RM) Lab3_v2.1.elf Lab3_v2.1.list Lab3_v2.1.map default.size.stdout
 	-@echo ' '
 
 secondary-outputs: $(SIZE_OUTPUT) $(OBJDUMP_LIST)

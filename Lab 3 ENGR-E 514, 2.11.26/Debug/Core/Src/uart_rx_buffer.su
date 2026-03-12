@@ -1,0 +1,5 @@
+../Core/Src/uart_rx_buffer.c:11:6:rxbuf_init	16	static
+../Core/Src/uart_rx_buffer.c:16:17:next_index	16	static
+../Core/Src/uart_rx_buffer.c:20:5:rxbuf_push	24	static
+../Core/Src/uart_rx_buffer.c:30:5:rxbuf_pop	16	static
+../Core/Src/uart_rx_buffer.c:39:5:rxbuf_available	16	static

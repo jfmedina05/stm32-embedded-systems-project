@@ -1,6 +1,0 @@
-../Core/Src/command.c:26:12:parse_command	3
-../Core/Src/command.c:41:5:execute_command	4
-../Core/Src/command.c:64:6:help_command	1
-../Core/Src/command.c:73:6:lon_command	1
-../Core/Src/command.c:78:6:lof_command	1
-../Core/Src/command.c:83:6:test_command	3
