@@ -1,0 +1,14 @@
+../Core/Src/commands.c:59:5:execute_command	5
+../Core/Src/commands.c:103:13:help_command	2
+../Core/Src/commands.c:112:13:lon_command	1
+../Core/Src/commands.c:117:6:lof_command	1
+../Core/Src/commands.c:122:6:time_set_command	13
+../Core/Src/commands.c:172:6:date_set_command	13
+../Core/Src/commands.c:220:6:temp_command	1
+../Core/Src/commands.c:245:6:battery_command	1
+../Core/Src/commands.c:257:6:tsl237_command	5
+../Core/Src/commands.c:280:6:test_command	4
+../Core/Src/commands.c:293:6:cmd_sample	2
+../Core/Src/commands.c:304:6:cmd_log	1
+../Core/Src/commands.c:311:6:cmd_data	1
+../Core/Src/commands.c:318:6:cmd_erase	4

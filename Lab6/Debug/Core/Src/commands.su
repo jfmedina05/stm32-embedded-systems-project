@@ -1,4 +1,0 @@
-../Core/Src/commands.c:17:6:cmd_sample	16	static
-../Core/Src/commands.c:23:6:cmd_log	8	static
-../Core/Src/commands.c:28:6:cmd_data	8	static
-../Core/Src/commands.c:33:6:cmd_erase	8	static
