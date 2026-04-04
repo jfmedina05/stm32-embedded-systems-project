@@ -1,7 +1,7 @@
 (README Version)
-##Design Analysis of the Light Sensor
-##Lab 7
-##Brady Adams & Jaiden Medina
+**Design Analysis of the Light Sensor**
+Lab 7
+Brady Adams & Jaiden Medina
 April 3rd, 2026
 
 Executive Summary
