@@ -1,2 +1,0 @@
-../Core/Src/retarget.c:13:6:RetargetInit	16	static
-../Core/Src/retarget.c:20:5:__io_putchar	16	static

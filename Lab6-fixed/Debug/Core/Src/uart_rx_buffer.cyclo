@@ -1,3 +1,0 @@
-../Core/Src/uart_rx_buffer.c:10:6:rxbuf_init	1
-../Core/Src/uart_rx_buffer.c:16:5:rxbuf_push	2
-../Core/Src/uart_rx_buffer.c:30:5:rxbuf_pop	2
