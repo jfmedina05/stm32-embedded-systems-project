@@ -87,21 +87,21 @@ This results in a fully integrated embedded system with both protection and func
 
 ### PCB Light Sensor Enclosure Base (Top View)
 <p align="center">
-  <img src="https://github.iu.edu/jfmedina/ES-SPRING-2026/assets/25716/4d8bdeaf-3306-4b2c-94ce-9b8f574c7e69" width="600"/>
+  <img src="https://github.iu.edu/jfmedina/ES-SPRING-2026/25716/4d8bdeaf-3306-4b2c-94ce-9b8f574c7e69" width="600"/>
 </p>
 
 ---
 
 ### PCB Light Sensor Enclosure Base (Bottom View – Rubber Plug)
 <p align="center">
-  <img src="https://github.iu.edu/jfmedina/ES-SPRING-2026/assets/25716/16a9a6a7-03f3-4f84-bd63-19f17b517409" width="600"/>
+  <img src="https://github.iu.edu/jfmedina/ES-SPRING-2026/25716/16a9a6a7-03f3-4f84-bd63-19f17b517409" width="600"/>
 </p>
 
 ---
 
 ### PCB Light Sensor Enclosure Lid (Side View)
 <p align="center">
-  <img src="https://github.iu.edu/jfmedina/ES-SPRING-2026/assets/25716/f6e419b5-5e29-4bcd-bf03-89af1f098d4a" width="600"/>
+  <img src="https://github.iu.edu/jfmedina/ES-SPRING-2026/25716/f6e419b5-5e29-4bcd-bf03-89af1f098d4a" width="600"/>
 </p>
 
 ---
