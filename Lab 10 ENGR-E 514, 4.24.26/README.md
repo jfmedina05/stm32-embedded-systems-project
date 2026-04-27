@@ -22,7 +22,7 @@ This lab represents a transition from system design to **real-world feasibility*
 - System samples light data every **15 minutes**  
 - Operates for **12 hours per day**  
 - Each sample takes up to **15 seconds**  
-- Powered by a **CR2032 Li-MnO₂ battery** :contentReference[oaicite:0]{index=0}  
+- Powered by a **CR2032 Li-MnO₂ battery**
 
 ---
 
