@@ -56,10 +56,20 @@ The project emphasizes **hardware–software integration**, where firmware, circ
 
 ---
 
+### Power & Cost System Analysis (Lab 10)
+- Modeled system power consumption using STM32CubeMX  
+- Evaluated battery life across multiple run and low-power modes  
+- Designed an optimized power management strategy  
+- Conducted prototype cost analysis across multiple production scales  
+- Integrated engineering decisions across performance, efficiency, and cost  
+
+---
+
 ## Repository Structure
 - `Lab 1 – Lab 8/` – Embedded systems development and hardware interfacing  
 - `Lab 9/` – Enclosure design and mechanical integration  
-- `README.md` – Project overview  
+- `Lab 10/` – Power analysis and prototype cost estimation  
+- `README.md` – Project overview   
 
 ---
 
