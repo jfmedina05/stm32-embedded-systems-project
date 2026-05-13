@@ -109,9 +109,27 @@ stm32-embedded-systems-project/
 
 ---
 
+## Labs and Documentation
+
+| Lab | Focus |
+|---|---|
+| [Lab 1 — Light Sensor Report](./Lab%201%20ENGR-E%20514%2C%201.26.26) | Early embedded system analysis focused on a light sensor application |
+| [Lab 2 — UART Command-Based LED Control](./Lab%202%20ENGR-E%20514%2C%202.4.26) | STM32 UART communication and serial command-based LED control |
+| [Lab 3 — STM32CubeIDE Firmware Development](./Lab%203%20ENGR-E%20514%2C%202.11.26) | STM32CubeIDE project setup and embedded firmware development |
+| [Lab 4 — STM32 Hardware Interfacing](./Lab%204%20ENGR-E%20514.%202.18.26) | STM32 firmware and hardware interfacing |
+| [Lab 5 — Embedded Systems Development](./Lab%205%20ENGR-E%20514%2C%203.4.26) | Continued STM32 embedded systems development |
+| [Lab 6 — Hardware/Software Integration](./Lab%206%20ENGR-E%20514%2C%203.27.26) | STM32 hardware and software integration |
+| [Lab 7 — System Integration](./Lab%207%20ENGR-E%20514%2C%204.3.26) | Embedded systems integration and testing |
+| [Lab 8 — Light Sensor PCB Layout](./Lab%208%20ENGR-E%20514%2C%204.10.26) | PCB layout and board design for the light sensor system |
+| [Lab 9 — Enclosure Design](./Lab%209%20ENGR-E%20514%2C%204.17.26) | Protective enclosure design and mechanical integration |
+| [Lab 10 — Power and Cost Analysis](./Lab%2010%20ENGR-E%20514%2C%204.24.26) | Power management, battery life, and prototype cost analysis |
+| [Final Report](./Final%20Report%2C%205.06.26) | Complete final embedded system design report |
+
+---
+
 ## Featured Work
 
-### STM32 Firmware Development
+### [STM32 Firmware Development](./Lab%203%20ENGR-E%20514%2C%202.11.26)
 
 The firmware portion of this project focuses on configuring and programming STM32 microcontrollers using C, STM32 HAL drivers, and STM32CubeIDE.
 
@@ -127,7 +145,7 @@ Key work includes:
 
 ---
 
-### UART Command-Based LED Control
+### [UART Command-Based LED Control](./Lab%202%20ENGR-E%20514%2C%202.4.26)
 
 One major firmware lab implemented UART-based command input to control an onboard LED through a serial terminal.
 
@@ -165,7 +183,7 @@ Key features:
 
 ---
 
-### Sensor and Hardware Integration
+### [Sensor and Hardware Integration](./Lab%206%20ENGR-E%20514%2C%203.27.26)
 
 The project includes sensor-focused embedded system work, including light sensor analysis, board-level hardware development, and system integration.
 
@@ -179,7 +197,7 @@ Key work includes:
 
 ---
 
-### PCB Design and Layout
+### [PCB Design and Layout](./Lab%208%20ENGR-E%20514%2C%204.10.26)
 
 The project includes PCB development work for a light sensor system.
 
@@ -193,7 +211,7 @@ Key work includes:
 
 ---
 
-### Enclosure Design
+### [Enclosure Design](./Lab%209%20ENGR-E%20514%2C%204.17.26)
 
 A major system integration lab focused on designing a custom enclosure for the STM32-based embedded system.
 
@@ -221,7 +239,7 @@ This part of the project shows how embedded systems extend beyond firmware. A wo
 
 ---
 
-### Power Management and Battery Analysis
+### [Power Management and Battery Analysis](./Lab%2010%20ENGR-E%20514%2C%204.24.26)
 
 The final system analysis evaluated power consumption and battery life for the STM32-based embedded system.
 
@@ -248,7 +266,7 @@ Key takeaways:
 
 ---
 
-### Prototype Cost Analysis
+### [Prototype Cost Analysis](./Lab%2010%20ENGR-E%20514%2C%204.24.26)
 
 The project also includes prototype cost analysis across different production quantities.
 
@@ -370,27 +388,27 @@ Embedded Product Prototype
 
 ## Representative Labs
 
-### Lab 1 — Light Sensor Report
+### [Lab 1 — Light Sensor Report](./Lab%201%20ENGR-E%20514%2C%201.26.26)
 
 Early embedded system analysis focused on a light sensor application and system-level design considerations.
 
-### Lab 2 — UART Command-Based LED Control
+### [Lab 2 — UART Command-Based LED Control](./Lab%202%20ENGR-E%20514%2C%202.4.26)
 
 Implemented a UART command interface to control an onboard LED using serial terminal commands.
 
-### Lab 8 — Light Sensor PCB Layout
+### [Lab 8 — Light Sensor PCB Layout](./Lab%208%20ENGR-E%20514%2C%204.10.26)
 
 Developed PCB layout work for a light sensor board, connecting circuit design with physical board constraints.
 
-### Lab 9 — Enclosure Design
+### [Lab 9 — Enclosure Design](./Lab%209%20ENGR-E%20514%2C%204.17.26)
 
 Designed a protective enclosure with standoffs, connector access, moisture protection, and a clear lid for sensor functionality.
 
-### Lab 10 — Power and Prototype Cost Analysis
+### [Lab 10 — Power and Prototype Cost Analysis](./Lab%2010%20ENGR-E%20514%2C%204.24.26)
 
 Modeled power consumption, battery life, and manufacturing cost across multiple production quantities.
 
-### Final Report
+### [Final Report](./Final%20Report%2C%205.06.26)
 
 Compiled the complete embedded system design into a final report covering firmware, hardware, enclosure design, power strategy, and system feasibility.
 
