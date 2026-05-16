@@ -444,5 +444,5 @@ Computer Engineering @ Indiana University
 Accelerated M.S. in Intelligent Systems Engineering  
 
 - GitHub: [jfmedina05](https://github.com/jfmedina05)
-- Portfolio: [jfmedina05.github.io](https://jfmedina05.github.io/)
+- Portfolio: [www.jaidenmedina.com]( http://www.jaidenmedina.com/)
 - LinkedIn: [jaiden-medina](https://www.linkedin.com/in/jaiden-medina)
