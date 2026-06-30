@@ -1,5 +1,23 @@
 # STM32 Embedded Systems Project
 
+<p align="center">
+  <img alt="C" src="https://img.shields.io/badge/C-00599C?logo=c&logoColor=white">
+  <img alt="STM32" src="https://img.shields.io/badge/STM32-03234B?logo=stmicroelectronics&logoColor=white">
+  <img alt="STM32CubeIDE" src="https://img.shields.io/badge/STM32CubeIDE-03234B?logo=stmicroelectronics&logoColor=white">
+  <img alt="STM32CubeMX" src="https://img.shields.io/badge/STM32CubeMX-03234B?logo=stmicroelectronics&logoColor=white">
+  <img alt="STM32 HAL" src="https://img.shields.io/badge/STM32%20HAL-Firmware-1E4D8C?logoColor=white">
+  <img alt="Nucleo L476RG" src="https://img.shields.io/badge/Nucleo%20L476RG-Development%20Board-2C8EBB?logoColor=white">
+  <img alt="Makefile" src="https://img.shields.io/badge/Makefile-Build%20System-427819?logo=gnu&logoColor=white">
+  <img alt="UART" src="https://img.shields.io/badge/UART-Serial%20Communication-00599C?logoColor=white">
+  <img alt="USART2" src="https://img.shields.io/badge/USART2-Peripheral%20Interface-00599C?logoColor=white">
+  <img alt="GPIO" src="https://img.shields.io/badge/GPIO-Digital%20I%2FO-2C8EBB?logoColor=white">
+  <img alt="PCB Design" src="https://img.shields.io/badge/PCB%20Design-Hardware%20Layout-008080?logoColor=white">
+  <img alt="Enclosure Design" src="https://img.shields.io/badge/Enclosure%20Design-Prototype%20Packaging-6f42c1?logoColor=white">
+  <img alt="Power Analysis" src="https://img.shields.io/badge/Power%20Analysis-Battery%20Life-B30B00?logoColor=white">
+  <img alt="GitHub" src="https://img.shields.io/badge/GitHub-181717?logo=github&logoColor=white">
+  <img alt="Markdown" src="https://img.shields.io/badge/Markdown-000000?logo=markdown&logoColor=white">
+</p>
+
 An embedded systems design project focused on STM32 microcontroller programming, peripheral configuration, UART communication, sensor integration, PCB development, enclosure design, power analysis, and full system-level engineering.
 
 This repository documents a multi-lab embedded systems workflow that progresses from basic STM32 firmware development to a complete embedded product prototype with firmware, hardware, mechanical packaging, power management, and cost analysis.
